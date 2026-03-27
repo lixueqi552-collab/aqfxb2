@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资讯管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+        .btn-primary { @apply bg-deep-blue text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">资讯管理</h1>
+            <p class="text-slate-500 text-sm">管理行业资讯、新闻动态内容</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-upload mr-2"></i>批量导入
+            </button>
+            <button class="btn-primary flex items-center">
+                <i class="fa-solid fa-plus mr-2"></i>发布资讯
+            </button>
+        </div>
+    </div>
+    
+    <!-- 标签切换 -->
+    <div class="bg-white rounded-xl shadow-sm mb-6">
+        <div class="flex border-b border-slate-200">
+            <button class="px-6 py-3 text-deep-blue font-medium border-b-2 border-deep-blue">全部资讯</button>
+            <button class="px-6 py-3 text-slate-500 hover:text-deep-blue">待审核 <span class="ml-1 px-2 py-0.5 bg-orange-100 text-orange-600 text-xs rounded-full">12</span></button>
+            <button class="px-6 py-3 text-slate-500 hover:text-deep-blue">已发布</button>
+            <button class="px-6 py-3 text-slate-500 hover:text-deep-blue">草稿箱</button>
+            <button class="px-6 py-3 text-slate-500 hover:text-deep-blue">回收站</button>
+        </div>
+        
+        <!-- 筛选区域 -->
+        <div class="p-4 flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索标题、内容..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">全部类型</option>
+                <option value="policy">政策动态</option>
+                <option value="trend">行业趋势</option>
+                <option value="case">案例分析</option>
+                <option value="news">新闻资讯</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">全部来源</option>
+                <option value="gov">政府官网</option>
+                <option value="media">媒体平台</option>
+                <option value="manual">手动发布</option>
+            </select>
+            <input type="date" class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 内容列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                    </th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">资讯内容</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">类型</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">来源</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">AI点评</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">发布时间</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div class="w-16 h-12 rounded bg-slate-200 mr-3 flex-shrink-0 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                                    <i class="fa-solid fa-image text-blue-400"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium text-slate-700 truncate">关于加强煤矿安全生产标准化建设的指导意见</p>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">为进一步提升煤矿安全生产管理水平，推动安全生产标准化建设...</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">政策动态</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">国家矿山安全监察局</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded"><i class="fa-solid fa-robot mr-1"></i>已生成</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">已发布</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 14:30</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="下架"><i class="fa-solid fa-arrow-down"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors bg-orange-50/50">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div class="w-16 h-12 rounded bg-slate-200 mr-3 flex-shrink-0 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
+                                    <i class="fa-solid fa-image text-orange-400"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium text-slate-700 truncate">山西某矿发生瓦斯超限事故应急处理通报</p>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">事故发生后，当地应急管理部门迅速启动应急预案...</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">警示通报</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">应急管理部</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded"><i class="fa-solid fa-clock mr-1"></i>待生成</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded">待审核</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 11:20</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded" title="审核通过"><i class="fa-solid fa-check"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="驳回"><i class="fa-solid fa-times"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-start">
+                            <div class="w-16 h-12 rounded bg-slate-200 mr-3 flex-shrink-0 overflow-hidden">
+                                <div class="w-full h-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                                    <i class="fa-solid fa-image text-green-400"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium text-slate-700 truncate">2026年煤矿智能化发展白皮书发布</p>
+                                <p class="text-xs text-slate-400 mt-1 line-clamp-1">白皮书指出，到2026年全国煤矿智能化采煤工作面将达到...</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">行业趋势</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">中国煤炭工业协会</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded"><i class="fa-solid fa-robot mr-1"></i>已生成</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">已发布</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-25 09:15</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="下架"><i class="fa-solid fa-arrow-down"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 分页 -->
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="text-sm text-slate-500">
+                    共 <span class="font-medium text-slate-700">3,456</span> 条记录
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white text-sm">
+                        <i class="fa-solid fa-trash mr-1"></i>批量删除
+                    </button>
+                    <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white text-sm">
+                        <i class="fa-solid fa-check mr-1"></i>批量审核
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+                <span class="text-slate-400">...</span>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

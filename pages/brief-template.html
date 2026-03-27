@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">模板管理</h1>
+            <p class="text-slate-500 text-sm">管理简报模板与样式配置</p>
+        </div>
+        <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+            <i class="fa-solid fa-plus mr-2"></i>新建模板
+        </button>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-5">
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-deep-blue to-blue-600 flex items-center justify-center">
+                <div class="text-center text-white">
+                    <i class="fa-solid fa-file-lines text-4xl mb-2"></i>
+                    <p class="font-bold">标准模板</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">默认模板</span>
+                    <span class="text-xs text-slate-400">已使用 67 次</span>
+                </div>
+                <p class="text-sm text-slate-600 mb-3">包含完整章节结构，适合常规周报发布</p>
+                <div class="flex items-center space-x-2">
+                    <button class="flex-1 py-2 border border-slate-200 text-slate-600 rounded-lg text-sm hover:bg-slate-50">编辑</button>
+                    <button class="flex-1 py-2 bg-deep-blue text-white rounded-lg text-sm hover:bg-blue-800">预览</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center">
+                <div class="text-center text-white">
+                    <i class="fa-solid fa-file-lines text-4xl mb-2"></i>
+                    <p class="font-bold">简约模板</p>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">可选模板</span>
+                    <span class="text-xs text-slate-400">已使用 12 次</span>
+                </div>
+                <p class="text-sm text-slate-600 mb-3">精简版设计，适合快速浏览场景</p>
+                <div class="flex items-center space-x-2">
+                    <button class="flex-1 py-2 border border-slate-200 text-slate-600 rounded-lg text-sm hover:bg-slate-50">编辑</button>
+                    <button class="flex-1 py-2 bg-deep-blue text-white rounded-lg text-sm hover:bg-blue-800">预览</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center min-h-[280px] hover:border-deep-blue transition-colors cursor-pointer">
+            <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-plus text-2xl text-slate-400"></i>
+                </div>
+                <p class="text-slate-500">创建新模板</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

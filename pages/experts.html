@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">专家管理</h1>
+            <p class="text-slate-500 text-sm">管理专家信息、解读内容与合作关系</p>
+        </div>
+        <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+            <i class="fa-solid fa-user-plus mr-2"></i>添加专家
+        </button>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-4 gap-5 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">专家总数</p>
+                    <p class="text-2xl font-bold text-deep-blue">52</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-user-tie text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">本月活跃</p>
+                    <p class="text-2xl font-bold text-trend-green">38</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">解读内容</p>
+                    <p class="text-2xl font-bold text-safety-orange">156</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <i class="fa-solid fa-comments text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">合作机构</p>
+                    <p class="text-2xl font-bold text-purple-500">8</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                    <i class="fa-solid fa-building text-purple-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索专家姓名、专业领域、机构..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">专业领域</option>
+                <option value="gas">瓦斯治理</option>
+                <option value="roof">顶板管理</option>
+                <option value="water">防治水</option>
+                <option value="fire">防灭火</option>
+                <option value="ventilation">通风安全</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">所属机构</option>
+                <option value="cumt">中国矿业大学</option>
+                <option value="sa">安全科学研究院</option>
+                <option value="other">其他机构</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 专家列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">专家信息</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">专业领域</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">所属机构</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">解读数量</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">最近活跃</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold mr-3 text-lg">王</div>
+                            <div>
+                                <p class="font-medium text-slate-700">王建国</p>
+                                <p class="text-xs text-slate-400">教授 · 博士生导师</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-2 py-0.5 bg-red-50 text-red-500 text-xs rounded">瓦斯治理</span>
+                            <span class="px-2 py-0.5 bg-blue-50 text-blue-500 text-xs rounded">通风安全</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center mr-2">
+                                <i class="fa-solid fa-university text-blue-500 text-xs"></i>
+                            </div>
+                            <span class="text-slate-600 text-sm">中国矿业大学</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-lg font-bold text-deep-blue">28</span>
+                        <span class="text-xs text-slate-400">篇</span>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>活跃</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-orange-500 hover:bg-orange-50 rounded" title="内容"><i class="fa-solid fa-file-lines"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white font-bold mr-3 text-lg">李</div>
+                            <div>
+                                <p class="font-medium text-slate-700">李明华</p>
+                                <p class="text-xs text-slate-400">研究员 · 高级工程师</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-2 py-0.5 bg-orange-50 text-orange-500 text-xs rounded">顶板管理</span>
+                            <span class="px-2 py-0.5 bg-yellow-50 text-yellow-600 text-xs rounded">采矿工程</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-purple-100 flex items-center justify-center mr-2">
+                                <i class="fa-solid fa-shield-halved text-purple-500 text-xs"></i>
+                            </div>
+                            <span class="text-slate-600 text-sm">安全科学研究院</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-lg font-bold text-deep-blue">19</span>
+                        <span class="text-xs text-slate-400">篇</span>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>活跃</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-25</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-orange-500 hover:bg-orange-50 rounded" title="内容"><i class="fa-solid fa-file-lines"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold mr-3 text-lg">张</div>
+                            <div>
+                                <p class="font-medium text-slate-700">张伟</p>
+                                <p class="text-xs text-slate-400">副教授 · 硕士生导师</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-2 py-0.5 bg-cyan-50 text-cyan-500 text-xs rounded">防治水</span>
+                            <span class="px-2 py-0.5 bg-blue-50 text-blue-500 text-xs rounded">地质工程</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center mr-2">
+                                <i class="fa-solid fa-university text-blue-500 text-xs"></i>
+                            </div>
+                            <span class="text-slate-600 text-sm">中国矿业大学</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-lg font-bold text-deep-blue">15</span>
+                        <span class="text-xs text-slate-400">篇</span>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>待激活</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-20</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded" title="激活"><i class="fa-solid fa-check"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors opacity-60">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center text-white font-bold mr-3 text-lg">刘</div>
+                            <div>
+                                <p class="font-medium text-slate-500">刘德明</p>
+                                <p class="text-xs text-slate-400">高级工程师</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded">防灭火</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center mr-2">
+                                <i class="fa-solid fa-building text-slate-400 text-xs"></i>
+                            </div>
+                            <span class="text-slate-500 text-sm">其他机构</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-lg font-bold text-slate-400">8</span>
+                        <span class="text-xs text-slate-400">篇</span>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>已停用</span></td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">2026-01-15</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded" title="启用"><i class="fa-solid fa-rotate"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 分页 -->
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+                共 <span class="font-medium text-slate-700">52</span> 位专家
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+                <span class="text-slate-400">...</span>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

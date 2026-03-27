@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作日志</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="mb-6">
+        <h1 class="text-xl font-bold text-deep-blue">操作日志</h1>
+        <p class="text-slate-500 text-sm">查看系统操作记录与审计追踪</p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <input type="text" placeholder="搜索操作内容、用户..." 
+                       class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option>全部操作</option>
+                <option>新增</option>
+                <option>编辑</option>
+                <option>删除</option>
+                <option>登录</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option>全部模块</option>
+                <option>用户管理</option>
+                <option>内容管理</option>
+                <option>简报管理</option>
+            </select>
+            <input type="date" class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-download mr-2"></i>导出
+            </button>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">时间</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作用户</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作类型</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作模块</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作内容</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">IP地址</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50">
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 16:30:45</td>
+                    <td class="px-6 py-4 text-slate-700 font-medium">Admin</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">新增</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">资讯管理</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">发布资讯：关于加强煤矿安全生产标准化建设的指导意见</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">192.168.1.100</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 16:15:22</td>
+                    <td class="px-6 py-4 text-slate-700 font-medium">Admin</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">编辑</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">AI点评</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">审核通过AI点评 ID: AI20260326001</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">192.168.1.100</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 15:45:10</td>
+                    <td class="px-6 py-4 text-slate-700 font-medium">李编辑</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">删除</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">案例库</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">删除案例：山西某矿瓦斯超限事故案例</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">192.168.1.102</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="px-6 py-4 text-slate-500 text-sm">2026-03-26 14:30:00</td>
+                    <td class="px-6 py-4 text-slate-700 font-medium">Admin</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">登录</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">系统</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">管理员登录系统</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">192.168.1.100</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+            <div class="text-sm text-slate-500">共 <span class="font-medium">1,234</span> 条记录</div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

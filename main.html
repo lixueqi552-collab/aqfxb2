@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 煤矿安全风向标</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                        'sidebar-bg': '#0f172a',
+                        'sidebar-hover': '#1e293b',
+                    },
+                    fontFamily: {
+                        'sans': ['Noto Sans SC', 'PingFang SC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body { font-family: 'Noto Sans SC', 'PingFang SC', sans-serif; }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 260px;
+            transition: width 0.3s ease;
+        }
+        .sidebar.collapsed { width: 72px; }
+        .sidebar.collapsed .nav-text { display: none; }
+        .sidebar.collapsed .logo-text { display: none; }
+        .sidebar.collapsed .submenu { display: none !important; }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.2) 0%, transparent 100%);
+            border-left: 3px solid #f97316;
+        }
+        
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .submenu.open { max-height: 500px; }
+        
+        /* 内容区动画 */
+        .content-frame {
+            transition: margin-left 0.3s ease;
+        }
+        
+        /* 统计卡片渐变 */
+        .stat-card-blue { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .stat-card-orange { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
+        .stat-card-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .stat-card-red { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+        .stat-card-purple { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+    </style>
+</head>
+<body class="bg-slate-100">
+    <div class="h-full flex">
+        <!-- 侧边栏 -->
+        <aside class="sidebar h-full bg-sidebar-bg flex flex-col fixed left-0 top-0 z-50">
+            <!-- Logo -->
+            <div class="p-5 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-safety-orange to-orange-400 flex items-center justify-center flex-shrink-0">
+                        <svg viewBox="0 0 80 80" class="w-6 h-6">
+                            <circle cx="40" cy="40" r="4" fill="white"/>
+                            <polygon points="40,8 44,35 40,32 36,35" fill="white"/>
+                            <polygon points="40,72 44,45 40,48 36,45" fill="white" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="text-white font-bold text-sm">煤矿安全风向标</h1>
+                        <p class="text-slate-400 text-xs">管理后台</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-4 overflow-y-auto">
+                <!-- 仪表盘 -->
+                <div class="nav-item active px-4 py-3 cursor-pointer" onclick="loadPage('dashboard')">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-chart-pie w-5 text-center text-safety-orange"></i>
+                        <span class="nav-text text-white text-sm">仪表盘</span>
+                    </div>
+                </div>
+                
+                <!-- 用户管理 -->
+                <div class="nav-group">
+                    <div class="nav-item px-4 py-3 cursor-pointer" onclick="toggleSubmenu(this)">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-users w-5 text-center text-blue-400"></i>
+                                <span class="nav-text text-slate-300 text-sm">用户管理</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down nav-text text-slate-500 text-xs transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="submenu pl-12">
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('users')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">用户列表</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('users-vip')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">VIP管理</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('users-role')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">角色权限</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 内容管理 -->
+                <div class="nav-group">
+                    <div class="nav-item px-4 py-3 cursor-pointer" onclick="toggleSubmenu(this)">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-newspaper w-5 text-center text-green-400"></i>
+                                <span class="nav-text text-slate-300 text-sm">内容管理</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down nav-text text-slate-500 text-xs transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="submenu pl-12">
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('content-news')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">资讯管理</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('content-policy')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">政策法规</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('content-case')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">案例库</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('content-alert')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">警示通报</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 简报管理 -->
+                <div class="nav-group">
+                    <div class="nav-item px-4 py-3 cursor-pointer" onclick="toggleSubmenu(this)">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-file-lines w-5 text-center text-purple-400"></i>
+                                <span class="nav-text text-slate-300 text-sm">简报管理</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down nav-text text-slate-500 text-xs transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="submenu pl-12">
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('brief-list')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">简报列表</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('brief-create')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">生成简报</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('brief-template')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">模板管理</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 专题管理 -->
+                <div class="nav-item px-4 py-3 cursor-pointer" onclick="loadPage('topics')">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-layer-group w-5 text-center text-cyan-400"></i>
+                        <span class="nav-text text-slate-300 text-sm">专题管理</span>
+                    </div>
+                </div>
+                
+                <!-- 专家管理 -->
+                <div class="nav-item px-4 py-3 cursor-pointer" onclick="loadPage('experts')">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-user-tie w-5 text-center text-amber-400"></i>
+                        <span class="nav-text text-slate-300 text-sm">专家管理</span>
+                    </div>
+                </div>
+                
+                <!-- AI点评管理 -->
+                <div class="nav-item px-4 py-3 cursor-pointer" onclick="loadPage('ai-comments')">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-robot w-5 text-center text-violet-400"></i>
+                        <span class="nav-text text-slate-300 text-sm">AI点评管理</span>
+                    </div>
+                </div>
+                
+                <!-- 数据源管理 -->
+                <div class="nav-group">
+                    <div class="nav-item px-4 py-3 cursor-pointer" onclick="toggleSubmenu(this)">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-database w-5 text-center text-teal-400"></i>
+                                <span class="nav-text text-slate-300 text-sm">数据源管理</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down nav-text text-slate-500 text-xs transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="submenu pl-12">
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('source-list')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">信息源配置</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('source-crawler')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">爬虫任务</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 系统设置 -->
+                <div class="nav-group">
+                    <div class="nav-item px-4 py-3 cursor-pointer" onclick="toggleSubmenu(this)">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-gear w-5 text-center text-slate-400"></i>
+                                <span class="nav-text text-slate-300 text-sm">系统设置</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down nav-text text-slate-500 text-xs transition-transform"></i>
+                        </div>
+                    </div>
+                    <div class="submenu pl-12">
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('settings-basic')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">基础设置</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('settings-notice')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">公告管理</span>
+                        </div>
+                        <div class="nav-item py-2 px-4 cursor-pointer" onclick="loadPage('settings-log')">
+                            <span class="nav-text text-slate-400 text-sm hover:text-white">操作日志</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- 底部折叠按钮 -->
+            <div class="p-4 border-t border-white/10">
+                <button onclick="toggleSidebar()" class="w-full py-2 text-slate-400 hover:text-white text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-angles-left" id="collapseIcon"></i>
+                    <span class="nav-text">收起菜单</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <div class="content-frame flex-1 ml-[260px] flex flex-col h-full">
+            <!-- 顶部栏 -->
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 flex-shrink-0 shadow-sm">
+                <div class="flex items-center space-x-4">
+                    <nav class="flex items-center space-x-2 text-sm">
+                        <a href="#" class="text-slate-400 hover:text-deep-blue">首页</a>
+                        <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
+                        <span class="text-deep-blue font-medium" id="breadcrumb">仪表盘</span>
+                    </nav>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- 搜索 -->
+                    <div class="relative">
+                        <input type="text" placeholder="搜索..." 
+                               class="w-64 px-4 py-2 pl-10 rounded-lg bg-slate-100 border-0 focus:outline-none focus:ring-2 focus:ring-deep-blue/20 text-sm">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    </div>
+                    
+                    <!-- 通知 -->
+                    <button class="relative p-2 text-slate-500 hover:text-deep-blue hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-alert-red rounded-full"></span>
+                    </button>
+                    
+                    <!-- 用户菜单 -->
+                    <div class="flex items-center space-x-3 pl-4 border-l border-slate-200">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-deep-blue to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                            A
+                        </div>
+                        <div class="hidden md:block">
+                            <p class="text-sm font-medium text-slate-700">Admin</p>
+                            <p class="text-xs text-slate-400">超级管理员</p>
+                        </div>
+                        <button onclick="logout()" class="p-2 text-slate-400 hover:text-alert-red hover:bg-red-50 rounded-lg transition-colors" title="退出登录">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 内容区域 -->
+            <main class="flex-1 overflow-auto p-6 bg-slate-50">
+                <iframe id="contentFrame" src="pages/dashboard.html" class="w-full h-full border-0 rounded-xl bg-white shadow-sm"></iframe>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // 侧边栏折叠
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const contentFrame = document.querySelector('.content-frame');
+            const icon = document.getElementById('collapseIcon');
+            
+            sidebar.classList.toggle('collapsed');
+            if (sidebar.classList.contains('collapsed')) {
+                contentFrame.style.marginLeft = '72px';
+                icon.classList.remove('fa-angles-left');
+                icon.classList.add('fa-angles-right');
+            } else {
+                contentFrame.style.marginLeft = '260px';
+                icon.classList.remove('fa-angles-right');
+                icon.classList.add('fa-angles-left');
+            }
+        }
+        
+        // 子菜单展开/收起
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            const chevron = element.querySelector('.fa-chevron-down');
+            
+            if (submenu && submenu.classList.contains('submenu')) {
+                submenu.classList.toggle('open');
+                if (submenu.classList.contains('open')) {
+                    chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+        
+        // 加载页面
+        function loadPage(page) {
+            const pageMap = {
+                'dashboard': '仪表盘',
+                'users': '用户列表',
+                'users-vip': 'VIP管理',
+                'users-role': '角色权限',
+                'content-news': '资讯管理',
+                'content-policy': '政策法规',
+                'content-case': '案例库',
+                'content-alert': '警示通报',
+                'brief-list': '简报列表',
+                'brief-create': '生成简报',
+                'brief-template': '模板管理',
+                'topics': '专题管理',
+                'experts': '专家管理',
+                'ai-comments': 'AI点评管理',
+                'source-list': '信息源配置',
+                'source-crawler': '爬虫任务',
+                'settings-basic': '基础设置',
+                'settings-notice': '公告管理',
+                'settings-log': '操作日志'
+            };
+            
+            document.getElementById('breadcrumb').textContent = pageMap[page] || page;
+            document.getElementById('contentFrame').src = `pages/${page}.html`;
+            
+            // 更新活动状态
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.closest('.nav-item')?.classList.add('active');
+        }
+        
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

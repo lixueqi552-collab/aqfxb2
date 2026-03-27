@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">VIP管理</h1>
+            <p class="text-slate-500 text-sm">管理VIP会员套餐与订阅</p>
+        </div>
+        <button class="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 flex items-center">
+            <i class="fa-solid fa-plus mr-2"></i>添加套餐
+        </button>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-5 mb-6">
+        <div class="bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-white/20 rounded-full text-sm">月度会员</span>
+                <span class="text-2xl font-bold">¥99</span>
+            </div>
+            <p class="text-amber-100 text-sm mb-4">适合短期使用需求的用户</p>
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>无限资讯浏览</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>AI智能问答</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>电子简报下载</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/20 flex items-center justify-between">
+                <span class="text-amber-100">订阅用户</span>
+                <span class="font-bold">156</span>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-5 text-white ring-2 ring-amber-300 ring-offset-2">
+            <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-white/20 rounded-full text-sm">年度会员</span>
+                <div class="text-right">
+                    <span class="text-2xl font-bold">¥699</span>
+                    <span class="text-amber-100 text-xs line-through ml-1">¥1188</span>
+                </div>
+            </div>
+            <p class="text-amber-100 text-sm mb-4">最受欢迎，性价比最高</p>
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>全部月度权益</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>纸质简报邮寄</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>专家咨询通道</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>定制化汇编服务</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/20 flex items-center justify-between">
+                <span class="text-amber-100">订阅用户</span>
+                <span class="font-bold">389</span>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-white/20 rounded-full text-sm">企业版</span>
+                <span class="text-2xl font-bold">¥2999</span>
+            </div>
+            <p class="text-slate-300 text-sm mb-4">适合企业批量采购</p>
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>全部年度权益</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>10个账号名额</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>专属客户经理</div>
+                <div class="flex items-center"><i class="fa-solid fa-check mr-2"></i>API接口服务</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/20 flex items-center justify-between">
+                <span class="text-slate-300">订阅企业</span>
+                <span class="font-bold">45</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <input type="text" placeholder="搜索用户..." 
+                       class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option>全部套餐</option>
+                <option>月度会员</option>
+                <option>年度会员</option>
+                <option>企业版</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option>全部状态</option>
+                <option>有效</option>
+                <option>即将过期</option>
+                <option>已过期</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">用户信息</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">套餐类型</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">订阅时间</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">到期时间</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-crown text-amber-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">张明辉</p>
+                                <p class="text-xs text-slate-400">山西焦煤集团</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded">年度会员</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">2025-01-15</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">2026-01-15</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">有效</span></td>
+                    <td class="px-6 py-4">
+                        <button class="px-3 py-1 text-sm text-deep-blue hover:underline">续费</button>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 bg-yellow-50">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-crown text-amber-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">李建国</p>
+                                <p class="text-xs text-slate-400">神华集团</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-amber-100 text-amber-600 text-xs rounded">月度会员</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">2026-02-20</td>
+                    <td class="px-6 py-4 text-yellow-600 text-sm font-medium">2026-03-20（即将过期）</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded">即将过期</span></td>
+                    <td class="px-6 py-4">
+                        <button class="px-3 py-1 text-sm bg-amber-500 text-white rounded hover:bg-amber-600">续费</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

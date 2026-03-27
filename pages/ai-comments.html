@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI点评管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+        .ai-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">AI点评管理</h1>
+            <p class="text-slate-500 text-sm">管理AI生成内容的审核与编辑</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-sliders mr-2"></i>模型设置
+            </button>
+            <button class="px-4 py-2 ai-gradient text-white rounded-lg hover:opacity-90 flex items-center">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>批量生成
+            </button>
+        </div>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-4 gap-5 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">AI点评总数</p>
+                    <p class="text-2xl font-bold text-deep-blue">2,456</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg ai-gradient flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">待审核</p>
+                    <p class="text-2xl font-bold text-safety-orange">45</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <i class="fa-solid fa-clock text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">已通过</p>
+                    <p class="text-2xl font-bold text-trend-green">2,312</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                    <i class="fa-solid fa-check text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">已驳回</p>
+                    <p class="text-2xl font-bold text-alert-red">99</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索点评内容、关联资讯..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">审核状态</option>
+                <option value="pending">待审核</option>
+                <option value="approved">已通过</option>
+                <option value="rejected">已驳回</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">内容类型</option>
+                <option value="news">资讯点评</option>
+                <option value="policy">政策解读</option>
+                <option value="alert">警示分析</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 点评列表 -->
+    <div class="space-y-4">
+        <!-- 待审核项 -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-orange-500">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg ai-gradient flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm font-medium text-slate-700">关联资讯：</span>
+                            <span class="text-sm text-deep-blue">关于加强煤矿安全生产标准化建设的指导意见</span>
+                            <span class="px-2 py-0.5 bg-orange-100 text-orange-600 text-xs rounded">待审核</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600">
+                                <i class="fa-solid fa-check mr-1"></i>通过
+                            </button>
+                            <button class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">
+                                <i class="fa-solid fa-xmark mr-1"></i>驳回
+                            </button>
+                            <button class="px-3 py-1 border border-slate-200 text-slate-600 text-sm rounded hover:bg-slate-50">
+                                <i class="fa-solid fa-pen mr-1"></i>编辑
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-3">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <i class="fa-solid fa-quote-left text-blue-400 mr-2"></i>
+                            该政策的发布对煤矿企业安全管理提出了更高要求，建议重点关注：1）安全生产标准化建设的时间节点；2）各岗位责任制的细化落实；3）安全投入的有效保障。企业应在政策实施前完成自查整改工作。
+                            <i class="fa-solid fa-quote-right text-purple-400 ml-2"></i>
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-calendar mr-1"></i>生成时间：2026-03-26 15:30</span>
+                        <span><i class="fa-solid fa-file-lines mr-1"></i>类型：政策解读</span>
+                        <span><i class="fa-solid fa-database mr-1"></i>模型版本：GPT-4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 已通过项 -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-green-500">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg ai-gradient flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm font-medium text-slate-700">关联资讯：</span>
+                            <span class="text-sm text-deep-blue">山西某矿瓦斯超限事故应急处理通报</span>
+                            <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded">已通过</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="撤回"><i class="fa-solid fa-rotate-left"></i></button>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-3">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <i class="fa-solid fa-quote-left text-blue-400 mr-2"></i>
+                            此次事故暴露出瓦斯监测系统响应不及时、应急演练流于形式等问题。建议各煤矿企业：1）升级瓦斯监测预警系统；2）强化应急演练实战性；3）落实"一通三防"主体责任。
+                            <i class="fa-solid fa-quote-right text-purple-400 ml-2"></i>
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-calendar mr-1"></i>审核时间：2026-03-26 14:20</span>
+                        <span><i class="fa-solid fa-user mr-1"></i>审核人：管理员</span>
+                        <span><i class="fa-solid fa-file-lines mr-1"></i>类型：警示分析</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 已驳回项 -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-red-500 opacity-70">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg ai-gradient flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm font-medium text-slate-700">关联资讯：</span>
+                            <span class="text-sm text-deep-blue">2026年煤矿智能化发展白皮书发布</span>
+                            <span class="px-2 py-0.5 bg-red-100 text-red-600 text-xs rounded">已驳回</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">
+                                <i class="fa-solid fa-rotate mr-1"></i>重新生成
+                            </button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-4 mb-3">
+                        <p class="text-sm text-slate-500 leading-relaxed line-through">
+                            智能化建设是大势所趋，企业应该加快推进...（内容质量不达标，已驳回）
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-6 text-xs">
+                        <span class="text-slate-400"><i class="fa-solid fa-calendar mr-1"></i>驳回时间：2026-03-26 10:15</span>
+                        <span class="text-red-500"><i class="fa-solid fa-comment mr-1"></i>驳回原因：内容过于泛泛，缺乏具体数据支撑</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="mt-6 flex items-center justify-center">
+        <div class="flex items-center space-x-2">
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+            <span class="text-slate-400">...</span>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</body>
+</html>

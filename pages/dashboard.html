@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+        .stat-card { transition: transform 0.2s, box-shadow 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 欢迎区域 -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-deep-blue mb-1">欢迎回来，Admin</h1>
+        <p class="text-slate-500">今日数据概览 · 更新时间：2026-03-26 16:00</p>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-5 gap-5 mb-6">
+        <div class="stat-card stat-card-blue rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded-full">+12%</span>
+            </div>
+            <p class="text-2xl font-bold mb-1">1,258</p>
+            <p class="text-blue-100 text-sm">注册用户</p>
+        </div>
+        
+        <div class="stat-card stat-card-orange rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded-full">+8%</span>
+            </div>
+            <p class="text-2xl font-bold mb-1">3,456</p>
+            <p class="text-orange-100 text-sm">资讯总量</p>
+        </div>
+        
+        <div class="stat-card stat-card-green rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded-full">+5%</span>
+            </div>
+            <p class="text-2xl font-bold mb-1">89</p>
+            <p class="text-green-100 text-sm">简报期数</p>
+        </div>
+        
+        <div class="stat-card stat-card-red rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded-full">本周</span>
+            </div>
+            <p class="text-2xl font-bold mb-1">23</p>
+            <p class="text-red-100 text-sm">警示通报</p>
+        </div>
+        
+        <div class="stat-card stat-card-purple rounded-xl p-5 text-white">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <span class="text-xs bg-white/20 px-2 py-1 rounded-full">活跃</span>
+            </div>
+            <p class="text-2xl font-bold mb-1">52</p>
+            <p class="text-purple-100 text-sm">专家数量</p>
+        </div>
+    </div>
+    
+    <!-- 双列布局 -->
+    <div class="grid grid-cols-3 gap-6">
+        <!-- 左侧 - 待办事项 & 最新内容 -->
+        <div class="col-span-2 space-y-6">
+            <!-- 待办事项 -->
+            <div class="bg-white rounded-xl p-5 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-deep-blue">
+                        <i class="fa-solid fa-list-check mr-2 text-safety-orange"></i>待办事项
+                    </h3>
+                    <span class="text-xs bg-red-100 text-alert-red px-2 py-1 rounded-full">5项待处理</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center p-3 bg-red-50 rounded-lg border border-red-100">
+                        <div class="w-2 h-2 rounded-full bg-alert-red mr-3"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-700">山西某矿瓦斯超限事故通报待发布</p>
+                            <p class="text-xs text-slate-400">创建于 2小时前</p>
+                        </div>
+                        <button class="px-3 py-1 bg-alert-red text-white text-xs rounded-lg hover:bg-red-600">立即处理</button>
+                    </div>
+                    <div class="flex items-center p-3 bg-orange-50 rounded-lg border border-orange-100">
+                        <div class="w-2 h-2 rounded-full bg-safety-orange mr-3"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-700">本周简报待审核生成</p>
+                            <p class="text-xs text-slate-400">创建于 4小时前</p>
+                        </div>
+                        <button class="px-3 py-1 bg-safety-orange text-white text-xs rounded-lg hover:bg-orange-600">去审核</button>
+                    </div>
+                    <div class="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-100">
+                        <div class="w-2 h-2 rounded-full bg-deep-blue mr-3"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-700">新增政策解读内容待编辑</p>
+                            <p class="text-xs text-slate-400">创建于 昨天</p>
+                        </div>
+                        <button class="px-3 py-1 bg-deep-blue text-white text-xs rounded-lg hover:bg-blue-800">去编辑</button>
+                    </div>
+                    <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="w-2 h-2 rounded-full bg-slate-400 mr-3"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-700">专家解读申请（王教授·瓦斯治理）</p>
+                            <p class="text-xs text-slate-400">创建于 2天前</p>
+                        </div>
+                        <button class="px-3 py-1 bg-slate-600 text-white text-xs rounded-lg hover:bg-slate-700">去审核</button>
+                    </div>
+                    <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="w-2 h-2 rounded-full bg-slate-400 mr-3"></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-700">用户反馈处理（3条未读）</p>
+                            <p class="text-xs text-slate-400">创建于 3天前</p>
+                        </div>
+                        <button class="px-3 py-1 bg-slate-600 text-white text-xs rounded-lg hover:bg-slate-700">查看</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最新内容 -->
+            <div class="bg-white rounded-xl p-5 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-deep-blue">
+                        <i class="fa-solid fa-clock-rotate-left mr-2 text-deep-blue"></i>最新内容
+                    </h3>
+                    <a href="#" class="text-sm text-deep-blue hover:underline">查看全部</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-xs text-slate-500 border-b border-slate-100">
+                                <th class="pb-3 font-medium">标题</th>
+                                <th class="pb-3 font-medium">类型</th>
+                                <th class="pb-3 font-medium">来源</th>
+                                <th class="pb-3 font-medium">状态</th>
+                                <th class="pb-3 font-medium">发布时间</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-slate-50">
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center mr-3">
+                                            <i class="fa-solid fa-file-contract text-blue-500 text-xs"></i>
+                                        </div>
+                                        <span class="text-slate-700">关于加强煤矿安全生产工作的通知</span>
+                                    </div>
+                                </td>
+                                <td><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">政策</span></td>
+                                <td class="text-slate-500">国家矿山安全监察局</td>
+                                <td><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">已发布</span></td>
+                                <td class="text-slate-400">10分钟前</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center mr-3">
+                                            <i class="fa-solid fa-triangle-exclamation text-red-500 text-xs"></i>
+                                        </div>
+                                        <span class="text-slate-700">贵州某矿发生顶板事故致3人死亡</span>
+                                    </div>
+                                </td>
+                                <td><span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded">警示</span></td>
+                                <td class="text-slate-500">应急管理部</td>
+                                <td><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded">审核中</span></td>
+                                <td class="text-slate-400">1小时前</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded bg-green-100 flex items-center justify-center mr-3">
+                                            <i class="fa-solid fa-chart-line text-green-500 text-xs"></i>
+                                        </div>
+                                        <span class="text-slate-700">2026年一季度煤矿智能化建设进展报告</span>
+                                    </div>
+                                </td>
+                                <td><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">趋势</span></td>
+                                <td class="text-slate-500">中国煤炭工业协会</td>
+                                <td><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">已发布</span></td>
+                                <td class="text-slate-400">3小时前</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-3">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded bg-purple-100 flex items-center justify-center mr-3">
+                                            <i class="fa-solid fa-newspaper text-purple-500 text-xs"></i>
+                                        </div>
+                                        <span class="text-slate-700">瓦斯防治新技术在山西煤矿应用成效显著</span>
+                                    </div>
+                                </td>
+                                <td><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">资讯</span></td>
+                                <td class="text-slate-500">行业媒体</td>
+                                <td><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">已发布</span></td>
+                                <td class="text-slate-400">5小时前</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧 - 快捷操作 & 系统状态 -->
+        <div class="space-y-6">
+            <!-- 快捷操作 -->
+            <div class="bg-white rounded-xl p-5 shadow-sm">
+                <h3 class="font-bold text-deep-blue mb-4">
+                    <i class="fa-solid fa-bolt mr-2 text-safety-orange"></i>快捷操作
+                </h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors text-center">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-plus text-white"></i>
+                        </div>
+                        <span class="text-xs text-slate-600">发布资讯</span>
+                    </button>
+                    <button class="p-4 bg-red-50 rounded-xl hover:bg-red-100 transition-colors text-center">
+                        <div class="w-10 h-10 rounded-lg bg-alert-red flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-triangle-exclamation text-white"></i>
+                        </div>
+                        <span class="text-xs text-slate-600">发布警示</span>
+                    </button>
+                    <button class="p-4 bg-orange-50 rounded-xl hover:bg-orange-100 transition-colors text-center">
+                        <div class="w-10 h-10 rounded-lg bg-safety-orange flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-file-lines text-white"></i>
+                        </div>
+                        <span class="text-xs text-slate-600">生成简报</span>
+                    </button>
+                    <button class="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors text-center">
+                        <div class="w-10 h-10 rounded-lg bg-trend-green flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-layer-group text-white"></i>
+                        </div>
+                        <span class="text-xs text-slate-600">创建专题</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 数据源状态 -->
+            <div class="bg-white rounded-xl p-5 shadow-sm">
+                <h3 class="font-bold text-deep-blue mb-4">
+                    <i class="fa-solid fa-database mr-2 text-deep-blue"></i>数据源状态
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 rounded-full bg-trend-green mr-2"></div>
+                            <span class="text-sm text-slate-600">国家矿山安全监察局</span>
+                        </div>
+                        <span class="text-xs text-slate-400">10分钟前</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 rounded-full bg-trend-green mr-2"></div>
+                            <span class="text-sm text-slate-600">应急管理部</span>
+                        </div>
+                        <span class="text-xs text-slate-400">25分钟前</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 rounded-full bg-trend-green mr-2"></div>
+                            <span class="text-sm text-slate-600">国家能源局</span>
+                        </div>
+                        <span class="text-xs text-slate-400">1小时前</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 rounded-full bg-yellow-500 mr-2"></div>
+                            <span class="text-sm text-slate-600">中国煤炭工业协会</span>
+                        </div>
+                        <span class="text-xs text-yellow-500">同步中...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 用户活跃度 -->
+            <div class="bg-white rounded-xl p-5 shadow-sm">
+                <h3 class="font-bold text-deep-blue mb-4">
+                    <i class="fa-solid fa-chart-simple mr-2 text-deep-blue"></i>本周用户活跃
+                </h3>
+                <div class="flex items-end justify-between h-32 px-2">
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/20 rounded-t" style="height: 40px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">一</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/30 rounded-t" style="height: 55px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">二</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/40 rounded-t" style="height: 70px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">三</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/50 rounded-t" style="height: 60px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">四</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/60 rounded-t" style="height: 85px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">五</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-deep-blue/40 rounded-t" style="height: 50px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">六</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-6 bg-safety-orange rounded-t" style="height: 95px;"></div>
+                        <span class="text-xs text-slate-400 mt-2">日</span>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-sm">
+                    <span class="text-slate-500">本周活跃用户</span>
+                    <span class="font-bold text-deep-blue">856 <span class="text-trend-green text-xs">↑ 15%</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成简报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="mb-6">
+        <h1 class="text-xl font-bold text-deep-blue">生成简报</h1>
+        <p class="text-slate-500 text-sm">配置并生成新的电子简报</p>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 space-y-6">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="font-bold text-deep-blue mb-4"><i class="fa-solid fa-calendar mr-2"></i>简报周期</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">开始日期</label>
+                        <input type="date" value="2026-03-18" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">结束日期</label>
+                        <input type="date" value="2026-03-24" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="font-bold text-deep-blue mb-4"><i class="fa-solid fa-layer-group mr-2"></i>内容选择</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 bg-blue-50 rounded-lg cursor-pointer">
+                        <input type="checkbox" checked class="w-5 h-5 mr-3">
+                        <div>
+                            <span class="font-medium text-slate-700">高层动态与政策</span>
+                            <span class="text-sm text-slate-400 ml-2">(12条)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 bg-green-50 rounded-lg cursor-pointer">
+                        <input type="checkbox" checked class="w-5 h-5 mr-3">
+                        <div>
+                            <span class="font-medium text-slate-700">行业趋势</span>
+                            <span class="text-sm text-slate-400 ml-2">(8条)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 bg-red-50 rounded-lg cursor-pointer">
+                        <input type="checkbox" checked class="w-5 h-5 mr-3">
+                        <div>
+                            <span class="font-medium text-slate-700">警示通报</span>
+                            <span class="text-sm text-slate-400 ml-2">(5条)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 bg-orange-50 rounded-lg cursor-pointer">
+                        <input type="checkbox" checked class="w-5 h-5 mr-3">
+                        <div>
+                            <span class="font-medium text-slate-700">专家解读</span>
+                            <span class="text-sm text-slate-400 ml-2">(6条)</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="font-bold text-deep-blue mb-4"><i class="fa-solid fa-file-lines mr-2"></i>简报模板</h3>
+                <div class="space-y-2">
+                    <label class="flex items-center p-3 border border-deep-blue bg-blue-50 rounded-lg cursor-pointer">
+                        <input type="radio" name="template" checked class="mr-3">
+                        <span class="text-slate-700">标准模板</span>
+                    </label>
+                    <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="template" class="mr-3">
+                        <span class="text-slate-700">简约模板</span>
+                    </label>
+                    <label class="flex items-center p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                        <input type="radio" name="template" class="mr-3">
+                        <span class="text-slate-700">企业定制模板</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="font-bold text-deep-blue mb-4"><i class="fa-solid fa-cog mr-2"></i>生成选项</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center">
+                        <input type="checkbox" checked class="mr-2">
+                        <span class="text-sm text-slate-600">自动生成AI导读</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" checked class="mr-2">
+                        <span class="text-sm text-slate-600">包含数据图表</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-sm text-slate-600">添加水印</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 bg-gradient-to-r from-safety-orange to-orange-500 text-white font-bold rounded-xl hover:opacity-90 flex items-center justify-center">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>开始生成
+            </button>
+        </div>
+    </div>
+</body>
+</html>

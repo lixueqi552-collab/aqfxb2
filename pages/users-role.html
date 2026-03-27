@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色权限</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">角色权限</h1>
+            <p class="text-slate-500 text-sm">管理系统角色与权限分配</p>
+        </div>
+        <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+            <i class="fa-solid fa-plus mr-2"></i>添加角色
+        </button>
+    </div>
+    
+    <div class="grid grid-cols-4 gap-5">
+        <!-- 角色列表 -->
+        <div class="bg-white rounded-xl shadow-sm">
+            <div class="p-4 border-b border-slate-200">
+                <h3 class="font-bold text-deep-blue">角色列表</h3>
+            </div>
+            <div class="p-2">
+                <div class="p-3 bg-blue-50 rounded-lg cursor-pointer mb-1">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-user-shield text-purple-500 mr-2"></i>
+                            <span class="font-medium text-slate-700">超级管理员</span>
+                        </div>
+                        <span class="text-xs text-slate-400">2人</span>
+                    </div>
+                </div>
+                <div class="p-3 hover:bg-slate-50 rounded-lg cursor-pointer mb-1">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-user-gear text-blue-500 mr-2"></i>
+                            <span class="text-slate-700">管理员</span>
+                        </div>
+                        <span class="text-xs text-slate-400">5人</span>
+                    </div>
+                </div>
+                <div class="p-3 hover:bg-slate-50 rounded-lg cursor-pointer mb-1">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-pen-to-square text-green-500 mr-2"></i>
+                            <span class="text-slate-700">编辑</span>
+                        </div>
+                        <span class="text-xs text-slate-400">12人</span>
+                    </div>
+                </div>
+                <div class="p-3 hover:bg-slate-50 rounded-lg cursor-pointer">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-user text-slate-400 mr-2"></i>
+                            <span class="text-slate-700">普通用户</span>
+                        </div>
+                        <span class="text-xs text-slate-400">1,239人</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 权限配置 -->
+        <div class="col-span-3 bg-white rounded-xl shadow-sm">
+            <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 class="font-bold text-deep-blue">权限配置 - 超级管理员</h3>
+                <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">系统角色</span>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-medium text-slate-700"><i class="fa-solid fa-chart-pie mr-2"></i>仪表盘</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-deep-blue after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap gap-2 ml-6">
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">查看统计</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">导出数据</label>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-medium text-slate-700"><i class="fa-solid fa-users mr-2"></i>用户管理</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-deep-blue after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap gap-2 ml-6">
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">查看用户</label>
+-2">
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">查看用户</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">添加用户</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">编辑用户</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">删除用户</label>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-50 rounded-lg">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-medium text-slate-700"><i class="fa-solid fa-newspaper mr-2"></i>内容管理</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-deep-blue after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap gap-2 ml-6">
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">查看内容</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">发布内容</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">审核内容</label>
+                            <label class="flex items-center text-sm text-slate-600"><input type="checkbox" checked class="mr-2">删除内容</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">重置</button>
+                    <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800">保存权限</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

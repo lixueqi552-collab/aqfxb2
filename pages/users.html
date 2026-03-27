@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+        .btn-primary { @apply bg-deep-blue text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors; }
+        .btn-danger { @apply bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors text-sm; }
+        .btn-edit { @apply bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors text-sm; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">用户列表</h1>
+            <p class="text-slate-500 text-sm">管理所有注册用户信息</p>
+        </div>
+        <button class="btn-primary flex items-center" onclick="showAddModal()">
+            <i class="fa-solid fa-plus mr-2"></i>添加用户
+        </button>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索用户名、手机号、单位..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">全部状态</option>
+                <option value="active">正常</option>
+                <option value="vip">VIP</option>
+                <option value="disabled">已禁用</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">全部角色</option>
+                <option value="admin">管理员</option>
+                <option value="editor">编辑</option>
+                <option value="user">普通用户</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors">
+                <i class="fa-solid fa-download mr-2"></i>导出
+            </button>
+        </div>
+    </div>
+    
+    <!-- 用户表格 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                    </th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">用户信息</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">手机号</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">所属单位</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">角色</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">VIP状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">注册时间</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-deep-blue to-blue-600 flex items-center justify-center text-white font-bold mr-3">张</div>
+                            <div>
+                                <p class="font-medium text-slate-700">张明辉</p>
+                                <p class="text-xs text-slate-400">ID: 1001</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600">138****5678</td>
+                    <td class="px-6 py-4 text-slate-600">山西焦煤集团</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">管理员</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-amber-100 text-amber-600 text-xs rounded"><i class="fa-solid fa-crown mr-1"></i>VIP</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2025-01-15</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="btn-edit"><i class="fa-solid fa-pen mr-1"></i>编辑</button>
+                            <button class="btn-danger"><i class="fa-solid fa-trash mr-1"></i>删除</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-safety-orange to-orange-400 flex items-center justify-center text-white font-bold mr-3">李</div>
+                            <div>
+                                <p class="font-medium text-slate-700">李建国</p>
+                                <p class="text-xs text-slate-400">ID: 1002</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600">139****1234</td>
+                    <td class="px-6 py-4 text-slate-600">神华集团</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">编辑</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-amber-100 text-amber-600 text-xs rounded"><i class="fa-solid fa-crown mr-1"></i>VIP</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2025-02-20</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="btn-edit"><i class="fa-solid fa-pen mr-1"></i>编辑</button>
+                            <button class="btn-danger"><i class="fa-solid fa-trash mr-1"></i>删除</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-trend-green to-green-500 flex items-center justify-center text-white font-bold mr-3">王</div>
+                            <div>
+                                <p class="font-medium text-slate-700">王安全</p>
+                                <p class="text-xs text-slate-400">ID: 1003</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600">137****9876</td>
+                    <td class="px-6 py-4 text-slate-600">阳煤集团</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">普通用户</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded">普通</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2025-03-10</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="btn-edit"><i class="fa-solid fa-pen mr-1"></i>编辑</button>
+                            <button class="btn-danger"><i class="fa-solid fa-trash mr-1"></i>删除</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold mr-3">赵</div>
+                            <div>
+                                <p class="font-medium text-slate-700">赵矿长</p>
+                                <p class="text-xs text-slate-400">ID: 1004</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600">135****5432</td>
+                    <td class="px-6 py-4 text-slate-600">山西潞安集团</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">普通用户</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded"><i class="fa-solid fa-ban mr-1"></i>已过期</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2024-12-05</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="btn-edit"><i class="fa-solid fa-pen mr-1"></i>编辑</button>
+                            <button class="btn-danger"><i class="fa-solid fa-trash mr-1"></i>删除</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 分页 -->
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+                共 <span class="font-medium text-slate-700">1,258</span> 条记录
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+                <span class="text-slate-400">...</span>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">126</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加用户弹窗 -->
+    <div id="addModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl w-full max-w-lg mx-4 shadow-2xl">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-deep-blue">添加用户</h3>
+                    <button onclick="hideAddModal()" class="text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">用户名</label>
+                        <input type="text" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue" placeholder="请输入用户名">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">手机号</label>
+                        <input type="text" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue" placeholder="请输入手机号">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 mb-2">所属单位</label>
+                    <input type="text" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue" placeholder="请输入所属单位">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">角色</label>
+                        <select class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                            <option>普通用户</option>
+                            <option>编辑</option>
+                            <option>管理员</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">VIP状态</label>
+                        <select class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                            <option>普通用户</option>
+                            <option>VIP会员</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-slate-200 flex justify-end space-x-3">
+                <button onclick="hideAddModal()" class="px-4 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50">取消</button>
+                <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800">确定添加</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+            document.getElementById('addModal').classList.add('flex');
+        }
+        function hideAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+            document.getElementById('addModal').classList.remove('flex');
+        }
+    </script>
+</body>
+</html>

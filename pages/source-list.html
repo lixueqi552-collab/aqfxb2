@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息源配置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">信息源配置</h1>
+            <p class="text-slate-500 text-sm">配置数据采集源与抓取规则</p>
+        </div>
+        <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+            <i class="fa-solid fa-plus mr-2"></i>添加信息源
+        </button>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-4 gap-5 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">信息源总数</p>
+                    <p class="text-2xl font-bold text-deep-blue">18</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-database text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">运行中</p>
+                    <p class="text-2xl font-bold text-trend-green">15</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                    <i class="fa-solid fa-circle-play text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">已暂停</p>
+                    <p class="text-2xl font-bold text-safety-orange">2</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <i class="fa-solid fa-circle-pause text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">异常</p>
+                    <p class="text-2xl font-bold text-alert-red">1</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 信息源列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">信息源</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">类型</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">采集频率</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">最后采集</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">今日采集</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-landmark text-red-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">国家矿山安全监察局</p>
+                                <p class="text-xs text-slate-400">https://www.chinamine-safety.gov.cn</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">政府官网</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">每小时</td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">10分钟前</td>
+                    <td class="px-6 py-4"><span class="text-lg font-bold text-trend-green">23</span> 条</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>运行中</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="暂停"><i class="fa-solid fa-pause"></i></button>
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="手动采集"><i class="fa-solid fa-sync"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="设置"><i class="fa-solid fa-gear"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="日志"><i class="fa-solid fa-list"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-shield-halved text-orange-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">应急管理部</p>
+                                <p class="text-xs text-slate-400">https://www.mem.gov.cn</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">政府官网</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">每小时</td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">25分钟前</td>
+                    <td class="px-6 py-4"><span class="text-lg font-bold text-trend-green">18</span> 条</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>运行中</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="暂停"><i class="fa-solid fa-pause"></i></button>
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="手动采集"><i class="fa-solid fa-sync"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="设置"><i class="fa-solid fa-gear"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="日志"><i class="fa-solid fa-list"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-bolt text-green-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">国家能源局</p>
+                                <p class="text-xs text-slate-400">https://www.nea.gov.cn</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">政府官网</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">每2小时</td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">1小时前</td>
+                    <td class="px-6 py-4"><span class="text-lg font-bold text-trend-green">12</span> 条</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded"><i class="fa-solid fa-circle text-xs mr-1"></i>运行中</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="暂停"><i class="fa-solid fa-pause"></i></button>
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="手动采集"><i class="fa-solid fa-sync"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="设置"><i class="fa-solid fa-gear"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="日志"><i class="fa-solid fa-list"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors bg-red-50">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-building text-purple-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-700">中国煤炭工业协会</p>
+                                <p class="text-xs text-slate-400">http://www.chinacoal.org.cn</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">行业协会</span></td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">每天</td>
+                    <td class="px-6 py-4"><span class="text-red-500 text-sm">采集失败</span></td>
+                    <td class="px-6 py-4"><span class="text-lg font-bold text-alert-red">0</span> 条</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded"><i class="fa-solid fa-circle-exclamation text-xs mr-1"></i>异常</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded" title="重启"><i class="fa-solid fa-play"></i></button>
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="手动采集"><i class="fa-solid fa-sync"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="设置"><i class="fa-solid fa-gear"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="日志"><i class="fa-solid fa-list"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors opacity-60">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-rss text-slate-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-500">煤矿安全网</p>
+                                <p class="text-xs text-slate-400">http://www.mkxxaq.com</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded">媒体平台</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">每天</td>
+                    <td class="px-6 py-4 text-slate-400 text-sm">已暂停</td>
+                    <td class="px-6 py-4"><span class="text-lg font-bold text-slate-400">0</span> 条</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded"><i class="fa-solid fa-circle-pause text-xs mr-1"></i>已暂停</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded" title="启动"><i class="fa-solid fa-play"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="设置"><i class="fa-solid fa-gear"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>警示通报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+        .alert-card { border-left: 4px solid; }
+        .alert-urgent { border-color: #dc2626; }
+        .alert-important { border-color: #f97316; }
+        .alert-normal { border-color: #3b82f6; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">警示通报管理</h1>
+            <p class="text-slate-500 text-sm">发布和管理事故警示、隐患通报</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-bell mr-2"></i>推送设置
+            </button>
+            <button class="px-4 py-2 bg-alert-red text-white rounded-lg hover:bg-red-600 flex items-center">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>发布警示
+            </button>
+        </div>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-4 gap-5 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-red-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">紧急警示</p>
+                    <p class="text-2xl font-bold text-alert-red">8</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
+                    <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-orange-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">重要警示</p>
+                    <p class="text-2xl font-bold text-safety-orange">15</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <i class="fa-solid fa-triangle-exclamation text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-blue-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">一般警示</p>
+                    <p class="text-2xl font-bold text-blue-500">32</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-circle-info text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border-l-4 border-slate-400">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">已过期</p>
+                    <p class="text-2xl font-bold text-slate-400">12</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center">
+                    <i class="fa-solid fa-clock-rotate-left text-slate-400 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索警示标题、内容..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">警示级别</option>
+                <option value="urgent">紧急</option>
+                <option value="important">重要</option>
+                <option value="normal">一般</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">通报类型</option>
+                <option value="accident">事故通报</option>
+                <option value="hazard">隐患通报</option>
+                <option value="warning">预警通报</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">状态</option>
+                <option value="active">生效中</option>
+                <option value="expired">已过期</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 警示列表 -->
+    <div class="space-y-4">
+        <!-- 紧急警示 -->
+        <div class="alert-card alert-urgent bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-bold text-slate-700">关于山西某矿瓦斯爆炸事故的紧急警示通报</h3>
+                            <span class="px-2 py-0.5 bg-red-100 text-red-600 text-xs rounded font-medium">紧急</span>
+                            <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded">生效中</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="推送"><i class="fa-solid fa-paper-plane"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">2026年3月25日，山西某矿发生一起瓦斯爆炸事故，造成重大人员伤亡。各煤矿企业要深刻吸取事故教训，立即开展瓦斯隐患排查...</p>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-user mr-1"></i>发布人：管理员</span>
+                        <span><i class="fa-solid fa-calendar mr-1"></i>发布时间：2026-03-25 18:30</span>
+                        <span><i class="fa-solid fa-eye mr-1"></i>阅读量：1,234</span>
+                        <span><i class="fa-solid fa-clock mr-1"></i>有效期至：2026-04-25</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 重要警示 -->
+        <div class="alert-card alert-important bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation text-orange-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-bold text-slate-700">关于春季煤矿顶板安全的重要提醒</h3>
+                            <span class="px-2 py-0.5 bg-orange-100 text-orange-600 text-xs rounded font-medium">重要</span>
+                            <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded">生效中</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="推送"><i class="fa-solid fa-paper-plane"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">春季气温回升，顶板管理面临新挑战。各煤矿企业要加强顶板动态监测，严格执行敲帮问顶制度...</p>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-user mr-1"></i>发布人：系统</span>
+                        <span><i class="fa-solid fa-calendar mr-1"></i>发布时间：2026-03-20 09:00</span>
+                        <span><i class="fa-solid fa-eye mr-1"></i>阅读量：856</span>
+                        <span><i class="fa-solid fa-clock mr-1"></i>有效期至：2026-05-20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 一般警示 -->
+        <div class="alert-card alert-normal bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-circle-info text-blue-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-bold text-slate-700">关于煤矿安全监控系统升级的提示通报</h3>
+                            <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded font-medium">一般</span>
+                            <span class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded">生效中</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="推送"><i class="fa-solid fa-paper-plane"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-3">根据国家最新要求，所有煤矿安全监控系统需在2026年6月30日前完成升级改造...</p>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-user mr-1"></i>发布人：系统</span>
+                        <span><i class="fa-solid fa-calendar mr-1"></i>发布时间：2026-03-15 10:00</span>
+                        <span><i class="fa-solid fa-eye mr-1"></i>阅读量：432</span>
+                        <span><i class="fa-solid fa-clock mr-1"></i>有效期至：2026-06-30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 已过期警示 -->
+        <div class="alert-card alert-normal bg-white rounded-xl p-5 shadow-sm opacity-60">
+            <div class="flex items-start">
+                <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mr-4 flex-shrink-0">
+                    <i class="fa-solid fa-clock-rotate-left text-slate-400 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-bold text-slate-500">关于春节期间煤矿安全生产工作的通知</h3>
+                            <span class="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded font-medium">一般</span>
+                            <span class="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded">已过期</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="续期"><i class="fa-solid fa-rotate"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-3">春节期间要加强值班值守，严格执行领导带班下井制度...</p>
+                    <div class="flex items-center space-x-6 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-user mr-1"></i>发布人：系统</span>
+                        <span><i class="fa-solid fa-calendar mr-1"></i>发布时间：2026-01-20 09:00</span>
+                        <span><i class="fa-solid fa-eye mr-1"></i>阅读量：567</span>
+                        <span class="text-red-400"><i class="fa-solid fa-clock mr-1"></i>已于 2026-02-15 过期</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="mt-6 flex items-center justify-center">
+        <div class="flex items-center space-x-2">
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+            <span class="text-slate-400">...</span>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</body>
+</html>

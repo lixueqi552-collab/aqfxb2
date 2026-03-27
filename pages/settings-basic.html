@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础设置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="mb-6">
+        <h1 class="text-xl font-bold text-deep-blue">基础设置</h1>
+        <p class="text-slate-500 text-sm">配置系统基础参数与功能开关</p>
+    </div>
+    
+    <!-- 设置分组 -->
+    <div class="space-y-6">
+        <!-- 网站信息 -->
+        <div class="bg-white rounded-xl shadow-sm">
+            <div class="px-6 py-4 border-b border-slate-200">
+                <h3 class="font-bold text-deep-blue flex items-center">
+                    <i class="fa-solid fa-globe mr-2 text-deep-blue"></i>网站信息
+                </h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">网站名称</label>
+                        <input type="text" value="煤矿安全风向标" 
+                               class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">网站副标题</label>
+                        <input type="text" value="AI智能解读 · 专家权威背书" 
+                               class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 mb-2">网站描述</label>
+                    <textarea rows="2" 
+                              class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">面向煤矿企业安全管理者的智能信息服务App，通过AI聚合分析+专家权威解读，帮助安全管理者高效获取行业动态、政策变化、事故警示等关键信息。</textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">客服电话</label>
+                        <input type="text" value="400-xxx-xxxx" 
+                               class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">客服邮箱</label>
+                        <input type="email" value="service@coalcompass.com" 
+                               class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 功能开关 -->
+        <div class="bg-white rounded-xl shadow-sm">
+            <div class="px-6 py-4 border-b border-slate-200">
+                <h3 class="font-bold text-deep-blue flex items-center">
+                    <i class="fa-solid fa-toggle-on mr-2 text-deep-blue"></i>功能开关
+                </h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-slate-700">AI点评自动生成</p>
+                            <p class="text-sm text-slate-400">资讯发布后自动生成AI点评</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-deep-blue"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-slate-700">用户注册审核</p>
+                            <p class="text-sm text-slate-400">新用户注册需要管理员审核</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-deep-blue"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-slate-700">简报自动生成</p>
+                            <p class="text-sm text-slate-400">每周自动生成电子简报</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-deep-blue"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-slate-700">消息推送</p>
+                            <p class="text-sm text-slate-400">启用APP消息推送通知</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-deep-blue"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 简报设置 -->
+        <div class="bg-white rounded-xl shadow-sm">
+            <div class="px-6 py-4 border-b border-slate-200">
+                <h3 class="font-bold text-deep-blue flex items-center">
+                    <i class="fa-solid fa-file-lines mr-2 text-deep-blue"></i>简报设置
+                </h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">简报生成周期</label>
+                        <select class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                            <option>每周</option>
+                            <option>每两周</option>
+                            <option>每月</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">生成时间</label>
+                        <input type="time" value="09:00" 
+                               class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-600 mb-2">生成日</label>
+                        <select class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                            <option>周一</option>
+                            <option>周二</option>
+                            <option>周三</option>
+                            <option>周四</option>
+                            <option>周五</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-600 mb-2">简报内容模块</label>
+                    <div class="flex flex-wrap gap-3">
+                        <label class="flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="mr-2">高层动态
+                        </label>
+                        <label class="flex items-center px-4 py-2 bg-green-50 text-green-600 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="mr-2">行业趋势
+                        </label>
+                        <label class="flex items-center px-4 py-2 bg-red-50 text-red-600 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="mr-2">警示通报
+                        </label>
+                        <label class="flex items-center px-4 py-2 bg-orange-50 text-orange-600 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="mr-2">专家解读
+                        </label>
+                        <label class="flex items-center px-4 py-2 bg-purple-50 text-purple-600 rounded-lg cursor-pointer">
+                            <input type="checkbox" class="mr-2">培训资料
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 保存按钮 -->
+        <div class="flex justify-end space-x-3">
+            <button class="px-6 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                重置
+            </button>
+            <button class="px-6 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800">
+                <i class="fa-solid fa-check mr-2"></i>保存设置
+            </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例库</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">案例库管理</h1>
+            <p class="text-slate-500 text-sm">管理历史事故案例、安全隐患案例</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-tags mr-2"></i>标签管理
+            </button>
+            <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+                <i class="fa-solid fa-plus mr-2"></i>添加案例
+            </button>
+        </div>
+    </div>
+    
+    <!-- 分类标签 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-2 overflow-x-auto">
+            <span class="px-4 py-2 bg-deep-blue text-white rounded-lg text-sm whitespace-nowrap cursor-pointer">全部案例</span>
+            <span class="px-4 py-2 bg-red-100 text-red-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-red-200">瓦斯事故 <span class="ml-1 text-red-400">(89)</span></span>
+            <span class="px-4 py-2 bg-orange-100 text-orange-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-orange-200">顶板事故 <span class="ml-1 text-orange-400">(156)</span></span>
+            <span class="px-4 py-2 bg-blue-100 text-blue-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-blue-200">水害事故 <span class="ml-1 text-blue-400">(67)</span></span>
+            <span class="px-4 py-2 bg-yellow-100 text-yellow-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-yellow-200">火灾事故 <span class="ml-1 text-yellow-400">(45)</span></span>
+            <span class="px-4 py-2 bg-purple-100 text-purple-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-purple-200">运输事故 <span class="ml-1 text-purple-400">(78)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">其他事故 <span class="ml-1 text-slate-400">(34)</span></span>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索案例名称、关键词..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">事故等级</option>
+                <option value="major">重大事故</option>
+                <option value="large">较大事故</option>
+                <option value="general">一般事故</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">发生年份</option>
+                <option value="2026">2026年</option>
+                <option value="2025">2025年</option>
+                <option value="2024">2024年</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">所属省份</option>
+                <option value="shanxi">山西</option>
+                <option value="neimenggu">内蒙古</option>
+                <option value="shaanxi">陕西</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 案例列表 - 卡片式 -->
+    <div class="grid grid-cols-3 gap-5">
+        <!-- 案例卡片 1 -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-40 bg-gradient-to-br from-red-500 to-red-600 relative">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-white/90 text-red-600 text-xs rounded font-medium">重大事故</span>
+                </div>
+                <div class="absolute top-3 right-3">
+                    <span class="px-2 py-1 bg-black/30 text-white text-xs rounded">2025年</span>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-white font-bold">山西某矿瓦斯爆炸事故</h3>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center space-x-4 text-sm text-slate-500 mb-3">
+                    <span><i class="fa-solid fa-location-dot mr-1"></i>山西省</span>
+                    <span><i class="fa-solid fa-calendar mr-1"></i>2025-08-15</span>
+                </div>
+                <p class="text-sm text-slate-600 line-clamp-2 mb-3">该事故造成12人死亡，直接经济损失约2800万元。事故原因是通风系统管理不当...</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2 py-1 bg-red-50 text-red-500 text-xs rounded">瓦斯</span>
+                        <span class="px-2 py-1 bg-orange-50 text-orange-500 text-xs rounded">爆炸</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <button class="p-1.5 text-blue-500 hover:bg-blue-50 rounded text-sm"><i class="fa-solid fa-eye"></i></button>
+                        <button class="p-1.5 text-slate-500 hover:bg-slate-100 rounded text-sm"><i class="fa-solid fa-pen"></i></button>
+                        <button class="p-1.5 text-red-500 hover:bg-red-50 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 案例卡片 2 -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-40 bg-gradient-to-br from-orange-500 to-orange-600 relative">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-white/90 text-orange-600 text-xs rounded font-medium">较大事故</span>
+                </div>
+                <div class="absolute top-3 right-3">
+                    <span class="px-2 py-1 bg-black/30 text-white text-xs rounded">2025年</span>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-white font-bold">贵州某矿顶板事故</h3>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center space-x-4 text-sm text-slate-500 mb-3">
+                    <span><i class="fa-solid fa-location-dot mr-1"></i>贵州省</span>
+                    <span><i class="fa-solid fa-calendar mr-1"></i>2025-06-22</span>
+                </div>
+                <p class="text-sm text-slate-600 line-clamp-2 mb-3">该事故造成3人死亡，直接经济损失约560万元。事故原因是顶板支护不到位...</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2 py-1 bg-orange-50 text-orange-500 text-xs rounded">顶板</span>
+                        <span class="px-2 py-1 bg-yellow-50 text-yellow-600 text-xs rounded">坍塌</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <button class="p-1.5 text-blue-500 hover:bg-blue-50 rounded text-sm"><i class="fa-solid fa-eye"></i></button>
+                        <button class="p-1.5 text-slate-500 hover:bg-slate-100 rounded text-sm"><i class="fa-solid fa-pen"></i></button>
+                        <button class="p-1.5 text-red-500 hover:bg-red-50 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 案例卡片 3 -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-40 bg-gradient-to-br from-blue-500 to-blue-600 relative">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-white/90 text-blue-600 text-xs rounded font-medium">一般事故</span>
+                </div>
+                <div class="absolute top-3 right-3">
+                    <span class="px-2 py-1 bg-black/30 text-white text-xs rounded">2025年</span>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-white font-bold">陕西某矿透水事故</h3>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center space-x-4 text-sm text-slate-500 mb-3">
+                    <span><i class="fa-solid fa-location-dot mr-1"></i>陕西省</span>
+                    <span><i class="fa-solid fa-calendar mr-1"></i>2025-03-10</span>
+                </div>
+                <p class="text-sm text-slate-600 line-clamp-2 mb-3">该事故造成1人死亡，直接经济损失约120万元。事故原因是探放水措施执行不严格...</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2 py-1 bg-blue-50 text-blue-500 text-xs rounded">水害</span>
+                        <span class="px-2 py-1 bg-cyan-50 text-cyan-600 text-xs rounded">透水</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <button class="p-1.5 text-blue-500 hover:bg-blue-50 rounded text-sm"><i class="fa-solid fa-eye"></i></button>
+                        <button class="p-1.5 text-slate-500 hover:bg-slate-100 rounded text-sm"><i class="fa-solid fa-pen"></i></button>
+                        <button class="p-1.5 text-red-500 hover:bg-red-50 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 案例卡片 4 -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div class="h-40 bg-gradient-to-br from-yellow-500 to-yellow-600 relative">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-1 bg-white/90 text-yellow-600 text-xs rounded font-medium">较大事故</span>
+                </div>
+                <div class="absolute top-3 right-3">
+                    <span class="px-2 py-1 bg-black/30 text-white text-xs rounded">2024年</span>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-white font-bold">河南某矿运输事故</h3>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center space-x-4 text-sm text-slate-500 mb-3">
+                    <span><i class="fa-solid fa-location-dot mr-1"></i>河南省</span>
+                    <span><i class="fa-solid fa-calendar mr-1"></i>2024-11-28</span>
+                </div>
+                <p class="text-sm text-slate-600 line-clamp-2 mb-3">该事故造成2人死亡，直接经济损失约280万元。事故原因是斜井运输安全防护装置失效...</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2 py-1 bg-purple-50 text-purple-500 text-xs rounded">运输</span>
+                        <span class="px-2 py-1 bg-yellow-50 text-yellow-600 text-xs rounded">跑车</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <button class="p-1.5 text-blue-500 hover:bg-blue-50 rounded text-sm"><i class="fa-solid fa-eye"></i></button>
+                        <button class="p-1.5 text-slate-500 hover:bg-slate-100 rounded text-sm"><i class="fa-solid fa-pen"></i></button>
+                        <button class="p-1.5 text-red-500 hover:bg-red-50 rounded text-sm"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="mt-6 flex items-center justify-center">
+        <div class="flex items-center space-x-2">
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+            <span class="text-slate-400">...</span>
+            <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</body>
+</html>

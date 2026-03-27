@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简报列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">简报管理</h1>
+            <p class="text-slate-500 text-sm">管理每周电子简报与定制汇编</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-book mr-2"></i>汇编管理
+            </button>
+            <button class="px-4 py-2 bg-safety-orange text-white rounded-lg hover:bg-orange-600 flex items-center">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>生成简报
+            </button>
+        </div>
+    </div>
+    
+    <!-- 统计卡片 -->
+    <div class="grid grid-cols-4 gap-5 mb-6">
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">总期数</p>
+                    <p class="text-2xl font-bold text-deep-blue">89</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <i class="fa-solid fa-file-lines text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">本月新增</p>
+                    <p class="text-2xl font-bold text-trend-green">4</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                    <i class="fa-solid fa-plus text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">下载次数</p>
+                    <p class="text-2xl font-bold text-safety-orange">2,456</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
+                    <i class="fa-solid fa-download text-orange-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">订阅用户</p>
+                    <p class="text-2xl font-bold text-purple-500">358</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                    <i class="fa-solid fa-users text-purple-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索简报标题、期号..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">年份</option>
+                <option value="2026">2026年</option>
+                <option value="2025">2025年</option>
+                <option value="2024">2024年</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">状态</option>
+                <option value="published">已发布</option>
+                <option value="draft">草稿</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 简报时间线 -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+        <div class="space-y-6">
+            <!-- 年份分组 2026 -->
+            <div>
+                <h3 class="text-lg font-bold text-deep-blue mb-4 flex items-center">
+                    <i class="fa-solid fa-calendar-days mr-2 text-safety-orange"></i>2026年
+                </h3>
+                <div class="grid grid-cols-4 gap-4">
+                    <!-- 简报卡片 -->
+                    <div class="border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-deep-blue to-blue-600 relative">
+                            <div class="absolute top-2 left-2">
+                                <span class="px-2 py-1 bg-white/90 text-deep-blue text-xs rounded font-medium">第89期</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-xs rounded">已发布</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+                                <p class="text-white text-xs">2026.03.18-03.24</p>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <p class="font-medium text-slate-700 text-sm mb-1 truncate group-hover:text-deep-blue">煤矿安全风向标第89期</p>
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span><i class="fa-solid fa-eye mr-1"></i>234</span>
+                                <span><i class="fa-solid fa-download mr-1"></i>56</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-safety-orange to-orange-500 relative">
+                            <div class="absolute top-2 left-2">
+                                <span class="px-2 py-1 bg-white/90 text-safety-orange text-xs rounded font-medium">第88期</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-xs rounded">已发布</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+                                <p class="text-white text-xs">2026.03.11-03.17</p>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <p class="font-medium text-slate-700 text-sm mb-1 truncate group-hover:text-deep-blue">煤矿安全风向标第88期</p>
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span><i class="fa-solid fa-eye mr-1"></i>312</span>
+                                <span><i class="fa-solid fa-download mr-1"></i>78</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-trend-green to-green-500 relative">
+                            <div class="absolute top-2 left-2">
+                                <span class="px-2 py-1 bg-white/90 text-trend-green text-xs rounded font-medium">第87期</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-xs rounded">已发布</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+                                <p class="text-white text-xs">2026.03.04-03.10</p>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <p class="font-medium text-slate-700 text-sm mb-1 truncate group-hover:text-deep-blue">煤矿安全风向标第87期</p>
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span><i class="fa-solid fa-eye mr-1"></i>289</span>
+                                <span><i class="fa-solid fa-download mr-1"></i>67</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-dashed border-slate-300 rounded-xl overflow-hidden hover:border-deep-blue transition-colors cursor-pointer group">
+                        <div class="h-full flex flex-col items-center justify-center py-10">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 group-hover:bg-deep-blue/10 flex items-center justify-center mb-2 transition-colors">
+                                <i class="fa-solid fa-plus text-slate-400 group-hover:text-deep-blue"></i>
+                            </div>
+                            <p class="text-sm text-slate-400 group-hover:text-deep-blue">生成新简报</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 年份分组 2025 -->
+            <div>
+                <h3 class="text-lg font-bold text-slate-500 mb-4 flex items-center">
+                    <i class="fa-solid fa-calendar-days mr-2"></i>2025年
+                </h3>
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group opacity-80">
+                        <div class="h-32 bg-gradient-to-br from-purple-500 to-purple-600 relative">
+                            <div class="absolute top-2 left-2">
+                                <span class="px-2 py-1 bg-white/90 text-purple-600 text-xs rounded font-medium">第86期</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+                                <p class="text-white text-xs">2025.02.25-03.03</p>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <p class="font-medium text-slate-700 text-sm mb-1 truncate">煤矿安全风向标第86期</p>
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span><i class="fa-solid fa-eye mr-1"></i>198</span>
+                                <span><i class="fa-solid fa-download mr-1"></i>45</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow cursor-pointer group opacity-80">
+                        <div class="h-32 bg-gradient-to-br from-cyan-500 to-cyan-600 relative">
+                            <div class="absolute top-2 left-2">
+                                <span class="px-2 py-1 bg-white/90 text-cyan-600 text-xs rounded font-medium">第85期</span>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+                                <p class="text-white text-xs">2025.02.18-02.24</p>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <p class="font-medium text-slate-700 text-sm mb-1 truncate">煤矿安全风向标第85期</p>
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span><i class="fa-solid fa-eye mr-1"></i>167</span>
+                                <span><i class="fa-solid fa-download mr-1"></i>38</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分页 -->
+        <div class="mt-6 flex items-center justify-center">
+            <button class="px-4 py-2 text-deep-blue hover:underline text-sm">
+                加载更多 <i class="fa-solid fa-chevron-down ml-1"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

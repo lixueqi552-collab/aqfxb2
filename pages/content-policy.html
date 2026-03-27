@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政策法规</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-blue': '#1e3a5f',
+                        'safety-orange': '#f97316',
+                        'alert-red': '#dc2626',
+                        'trend-green': '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: transparent; }
+    </style>
+</head>
+<body class="p-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-xl font-bold text-deep-blue">政策法规</h1>
+            <p class="text-slate-500 text-sm">管理安全生产政策、法规、标准等内容</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50">
+                <i class="fa-solid fa-folder-open mr-2"></i>分类管理
+            </button>
+            <button class="px-4 py-2 bg-deep-blue text-white rounded-lg hover:bg-blue-800 flex items-center">
+                <i class="fa-solid fa-plus mr-2"></i>添加政策
+            </button>
+        </div>
+    </div>
+    
+    <!-- 分类标签 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-2 overflow-x-auto">
+            <span class="px-4 py-2 bg-deep-blue text-white rounded-lg text-sm whitespace-nowrap cursor-pointer">全部</span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">法律法规 <span class="ml-1 text-slate-400">(234)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">部门规章 <span class="ml-1 text-slate-400">(156)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">国家标准 <span class="ml-1 text-slate-400">(89)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">行业标准 <span class="ml-1 text-slate-400">(178)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">安全规程 <span class="ml-1 text-slate-400">(67)</span></span>
+            <span class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm whitespace-nowrap cursor-pointer hover:bg-slate-200">地方政策 <span class="ml-1 text-slate-400">(45)</span></span>
+        </div>
+    </div>
+    
+    <!-- 筛选区域 -->
+    <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div class="flex items-center space-x-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="搜索政策名称、文号、关键词..." 
+                           class="w-full px-4 py-2 pl-10 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">发布机构</option>
+                <option value="mem">应急管理部</option>
+                <option value="nrsc">国家矿山安全监察局</option>
+                <option value="nea">国家能源局</option>
+            </select>
+            <select class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-deep-blue text-slate-600">
+                <option value="">效力状态</option>
+                <option value="effective">现行有效</option>
+                <option value="expired">已失效</option>
+                <option value="revised">已修订</option>
+            </select>
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200">
+                <i class="fa-solid fa-filter mr-2"></i>筛选
+            </button>
+        </div>
+    </div>
+    
+    <!-- 政策列表 -->
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300">
+                    </th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">政策名称</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">文号</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">发布机构</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">分类</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">效力状态</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">发布日期</th>
+                    <th class="text-left px-6 py-4 text-sm font-medium text-slate-600">操作</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div>
+                            <p class="font-medium text-slate-700">煤矿安全生产条例</p>
+                            <div class="flex items-center mt-1 space-x-2">
+                                <span class="text-xs text-slate-400">国务院令第777号</span>
+                                <span class="px-1.5 py-0.5 bg-red-100 text-red-500 text-xs rounded">重要</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">国务院令第777号</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">国务院</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded">法律法规</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">现行有效</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2024-02-01</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="关联"><i class="fa-solid fa-link"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div>
+                            <p class="font-medium text-slate-700">煤矿安全规程</p>
+                            <div class="flex items-center mt-1 space-x-2">
+                                <span class="text-xs text-slate-400">国家安全生产监督管理总局令第87号</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">安监总局令第87号</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">应急管理部</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded">安全规程</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded">现行有效</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2022-04-01</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="关联"><i class="fa-solid fa-link"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><input type="checkbox" class="w-4 h-4 rounded border-slate-300"></td>
+                    <td class="px-6 py-4">
+                        <div>
+                            <p class="font-medium text-slate-700">煤矿瓦斯抽采达标暂行规定</p>
+                            <div class="flex items-center mt-1">
+                                <span class="text-xs text-slate-400">煤安监技装〔2011〕163号</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">煤安监技装〔2011〕163号</td>
+                    <td class="px-6 py-4 text-slate-600 text-sm">国家矿山安全监察局</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-orange-100 text-orange-600 text-xs rounded">部门规章</span></td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded">已修订</span></td>
+                    <td class="px-6 py-4 text-slate-500 text-sm">2011-10-01</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-1">
+                            <button class="p-2 text-blue-500 hover:bg-blue-50 rounded" title="查看"><i class="fa-solid fa-eye"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="编辑"><i class="fa-solid fa-pen"></i></button>
+                            <button class="p-2 text-slate-500 hover:bg-slate-100 rounded" title="关联"><i class="fa-solid fa-link"></i></button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded" title="删除"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 分页 -->
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+                共 <span class="font-medium text-slate-700">769</span> 条记录
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="px-3 py-1 bg-deep-blue text-white rounded">1</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">2</button>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-600 hover:bg-white">3</button>
+                <span class="text-slate-400">...</span>
+                <button class="px-3 py-1 border border-slate-200 rounded text-slate-500 hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
